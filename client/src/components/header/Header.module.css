@@ -1,0 +1,15 @@
+.mainHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+.logo {
+}
+.mainNav {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+.link {
+}
