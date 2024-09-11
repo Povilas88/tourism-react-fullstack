@@ -12,6 +12,8 @@
   "author": "Povilas (https://github.com/Povilas88)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.20.0",
+    "mysql2": "^3.11.2"
   }
 }

@@ -1,7 +1,8 @@
 import express from 'express';
+import { env } from './env.js';
 import { apiRouter } from './router/api.js';
+
 const app = express();
-const port = 5020;
 
 app.use('/api', apiRouter);
 
@@ -21,6 +22,6 @@ app.use((err, req, res, next) => {
     return res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
-    console.log(`Tourism server: http://localhost:${port}`);
+app.listen(env.SERVER_PORT, () => {
+    console.log(`Server running on: http://localhost:${env.SERVER_PORT}`);
 });
