@@ -1,10 +1,9 @@
 import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/Header";
-
 import { LocationCard } from "../components/locations/LocationCard";
-import { locationsData } from "../data/locationsData";
 
 export function LocationListing() {
+    const locationsData = [];
 
     return (
         <>
