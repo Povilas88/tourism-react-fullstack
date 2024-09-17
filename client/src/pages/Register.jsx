@@ -34,6 +34,19 @@ export function Register() {
             passwordError = `Password is too long, must be a maximum of ${maxPasswordLength} symbols.`;
         }
         setPasswordError(passwordError);
+
+        if (!usernameError && !passwordError) {
+            fetch('http://localhost:5020/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                })
+            })
+        }
     }
 
     return (

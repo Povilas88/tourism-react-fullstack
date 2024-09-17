@@ -15,6 +15,12 @@ const helmetOptions = {
 
 const app = express();
 
+app.use(express.json({
+    type: 'application/json',
+}));
+
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 app.use('/api', apiRouter);
