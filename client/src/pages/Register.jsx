@@ -66,6 +66,7 @@ export function Register() {
                             {/* {usernameError ? <p>{usernameError}</p> : null} */}
                             {usernameError && <p className="invalid-feedback">{usernameError}</p>}
                         </div>
+
                         <div className="form-floating">
                             <input value={password} onChange={e => setPassword(e.target.value.trim())}
                                 type="password" id="password" placeholder="Password"
@@ -74,7 +75,7 @@ export function Register() {
                             {passwordError && <p className="invalid-feedback">{passwordError}</p>}
                         </div>
 
-                        <button className="btn btn-primary w-100 py-2 mt-3" type="submit">Sign in</button>
+                        <button className="btn btn-primary w-100 py-2 mt-3" type="submit">Register</button>
                     </form>
                 </div>
             </main>
