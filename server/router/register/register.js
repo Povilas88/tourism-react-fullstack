@@ -51,8 +51,6 @@ async function postRegister(req, res) {
         })
     }
 
-
-
     try {
         const sql = `INSERT INTO users (username,password) VALUES (?,?);`;
         const result = await connection.execute(sql, [username, password]);
@@ -69,7 +67,6 @@ async function postRegister(req, res) {
             data: 'Technical issues, failed request, try again later',
         });
     }
-
 
     return res.status(200).json({
         status: 'success',
