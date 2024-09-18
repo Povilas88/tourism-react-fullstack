@@ -22,7 +22,7 @@ export function isValidUsername(username) {
 export function isValidPassword(password) {
     const stringMinSize = 8;
     const stringMaxSize = 100;
-    const allowedSymbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*+-!/';
+    const allowedSymbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     if (typeof password !== 'string') {
         return 'Input must be a string';
