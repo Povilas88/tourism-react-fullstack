@@ -20,7 +20,7 @@ async function postLogin(req, res) {
     ) {
         return res.status(400).json({
             status: 'error',
-            data: 'Data type must be object',
+            message: 'Data type must be object',
         })
     }
 
@@ -79,7 +79,7 @@ async function postLogin(req, res) {
     }
 
     try {
-        const sql = `INSERT INTO users (token, user_id) VALUES (?,?);`;
+        const sql = `INSERT INTO tokens (token, user_id) VALUES (?, ?);`;
         const result = await connection.execute(sql, [token, userData.id]);
 
         if (result[0].affectedRows !== 1) {

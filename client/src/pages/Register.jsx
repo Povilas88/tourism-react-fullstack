@@ -61,8 +61,8 @@ export function Register() {
                     <form onSubmit={submitForm} className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <h1 className="h3 mb-3 fw-normal">Please register</h1>
 
-                        {apiResponse && apiResponse.status === 'success' ? <p className="alert alert-success">{apiResponse.data}</p> : null}
-                        {apiResponse && apiResponse.status === 'error' ? <p className="alert alert-danger">{apiResponse.data}</p> : null}
+                        {apiResponse && apiResponse.status === 'success' ? <p className="alert alert-success">{apiResponse.message}</p> : null}
+                        {apiResponse && apiResponse.status === 'error' ? <p className="alert alert-danger">{apiResponse.message}</p> : null}
 
                         <div className="form-floating">
                             <input value={username} onChange={e => setUsername(e.target.value.trim())}

@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/Header";
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalContext";
 
 export function Login() {
+    const { changeLoginStatus } = useContext(GlobalContext)
+
     const minUsernameLength = 3;
     const maxUsernameLength = 20;
     const minPasswordLength = 8;
@@ -14,6 +18,8 @@ export function Login() {
     const [passwordError, setPasswordError] = useState('');
     const [isFormValidated, setIsFormValidated] = useState(false);
     const [apiResponse, setApiResponse] = useState(null);
+
+    const navigate = useNavigate();
 
     function submitForm(e) {
         e.preventDefault();
@@ -42,13 +48,20 @@ export function Login() {
                 headers: {
                     'Content-type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     username,
                     password,
                 })
             })
                 .then(res => res.json())
-                .then(data => setApiResponse(data))
+                .then(data => {
+                    setApiResponse(data)
+                    if (data.status === 'success') {
+                        changeLoginStatus(true);
+                        navigate('/dashboard')
+                    }
+                })
                 .catch(err => console.error(err))
         }
     }
