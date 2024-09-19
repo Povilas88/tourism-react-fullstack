@@ -38,7 +38,7 @@ export function Header() {
                     <Link to="/register" className="btn btn-primary">Register</Link>
                 </div>}
 
-                {!isLoggedIn && <div className="col-md-3 text-end">
+                {isLoggedIn && <div className="col-md-3 text-end">
                     <Link to='/dashboard' className="nav-link px-2">Dashboard</Link>
                     <button onClick={logout} type='button' className="btn btn-outline-primary me-2">Log out</button>
                 </div>}

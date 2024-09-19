@@ -4,6 +4,9 @@ import { isValidUsername, isValidPassword } from '../../lib/isValid.js';
 
 export const loginAPIrouter = express.Router();
 
+const tokenLength = 20;
+
+loginAPIrouter.get('/', getLogin)
 loginAPIrouter.post('/', postLogin)
 
 loginAPIrouter.use((req, res) => {
@@ -12,6 +15,18 @@ loginAPIrouter.use((req, res) => {
         data: 'This HTTP method is not valid',
     });
 })
+
+//login confirmation
+async function getLogin(req, res) {
+    const cookies = req.headers.cookie
+        .split(';')
+        .map(s => s.trim().split('='))
+        .reduce((total, item) => ({ ...total, [item[0]]: item[1] }), {})
+
+    return res.json({
+        isLoggedIn: true,
+    });
+}
 
 async function postLogin(req, res) {
     if (typeof req.body !== 'object'
@@ -54,18 +69,35 @@ async function postLogin(req, res) {
     let userData = null;
 
     try {
-        const sql = 'SELECT * FROM users WHERE username = ? AND password = ?;';
-        const result = await connection.execute(sql, [username, password])
+        const sql = 'SELECT * FROM users WHERE username = ?;';
+        const result = await connection.execute(sql, [username]);
 
-        if (result[0].length !== 1) {
-            return res.status(400).json({
+        if (result[0].length === 0) {
+            return res.status(404).json({
                 status: 'error',
-                message: 'User account error, contact client support',
+                message: 'User not found, please check your username',
             });
         }
-        userData = result[0][0];
+
+        if (result[0].length > 1) {
+            return res.status(409).json({
+                status: 'error',
+                message: 'User account error, please contact support',
+            });
+        }
+
+        const user = result[0][0];
+        if (user.password !== password) {
+            return res.status(401).json({
+                status: 'error',
+                message: 'Incorrect password, please try again',
+            });
+        }
+
+        userData = user;
+
     } catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
             status: 'error',
             message: 'Technical issues, failed to log in, try again later',
         });
@@ -74,7 +106,7 @@ async function postLogin(req, res) {
     const abc = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let token = '';
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < tokenLength; i++) {
         token += abc[Math.floor(Math.random() * abc.length)];
     }
 
