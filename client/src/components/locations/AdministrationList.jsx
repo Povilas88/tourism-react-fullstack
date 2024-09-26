@@ -9,20 +9,20 @@ export function AdminLocationsList({ locations }) {
     return (
         <div className="container px-4 py-5">
             <div className="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-                <button onClick={changeVisibility} type="button">Rodyti/nerodyti nuotraukos nuorodą</button>
+                <button onClick={changeVisibility} type="button">Show/hide picture link</button>
                 <table className="table table-bordered border-primary">
                     <thead className='table-dark'>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nuotrauka</th>
-                            <th scope="col">Pavadinimas</th>
-                            {linkVisibility ? <th scope="col">Nuotraukos nuoroda</th> : null}
-                            <th scope="col">Šalis</th>
-                            <th scope="col">Miestas</th>
-                            <th scope="col">Gatvė</th>
-                            <th scope="col">Numeris</th>
-                            <th scope="col">Paško kodas</th>
-                            <th scope="col">Veiksmai</th>
+                            <th scope="col">Picture</th>
+                            <th scope="col">Title</th>
+                            {linkVisibility ? <th scope="col">Picture link</th> : null}
+                            <th scope="col">Country</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Street</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Postal code</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

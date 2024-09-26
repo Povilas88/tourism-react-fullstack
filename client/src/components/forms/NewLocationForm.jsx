@@ -22,10 +22,10 @@ export function NewLocationForm() {
 
         setIsFormValidated(true);
 
-        setNameError(isValid(name) ? '' : 'Trūksta vietos/objekto pavadinimo');
-        setImgError(isValid(img) ? '' : 'Trūksta nuorodos');
-        setCountryError(isValid(country) ? '' : 'Trūksta šalies pavadinimo');
-        setCityError(isValid(city) ? '' : 'Trūksta miesto pavadinimo');
+        setNameError(isValid(name) ? '' : 'Missing place/object name');
+        setImgError(isValid(img) ? '' : 'Missing link');
+        setCountryError(isValid(country) ? '' : 'Missing country name');
+        setCityError(isValid(city) ? '' : 'Missing city name');
 
 
         if (!nameError && !imgError && !countryError && !cityError) {
@@ -51,7 +51,7 @@ export function NewLocationForm() {
         <main className="form-signin container">
             <div className="row">
                 <form onSubmit={submitForm} className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                    <h1 className="h3 mb-3 fw-normal">Nauja lokacija</h1>
+                    <h1 className="h3 mb-3 fw-normal">New location</h1>
 
                     {apiResponse && apiResponse.status === 'success' ? <p className="alert alert-success">{apiResponse.msg}</p> : null}
                     {apiResponse && apiResponse.status === 'error' ? <p className="alert alert-danger">{apiResponse.msg}</p> : null}
@@ -61,7 +61,7 @@ export function NewLocationForm() {
                         <input value={name} onChange={e => setName(e.target.value.trim())}
                             type="text" id="name" placeholder="Nemunas"
                             className={'form-control ' + (isFormValidated ? nameError ? 'is-invalid' : 'is-valid' : '')} />
-                        <label htmlFor="name">Vietos pavadinimas</label>
+                        <label htmlFor="name">Location name</label>
                         {nameError && <p className="invalid-feedback">{nameError}</p>}
                     </div>
 
@@ -69,7 +69,7 @@ export function NewLocationForm() {
                         <input value={img} onChange={e => setImg(e.target.value.trim())}
                             type="text" id="img" placeholder="Image"
                             className={'form-control ' + (isFormValidated ? imgError ? 'is-invalid' : 'is-valid' : '')} />
-                        <label htmlFor="img">Nuotrauka</label>
+                        <label htmlFor="img">Picture</label>
                         {imgError && <p className="invalid-feedback">{imgError}</p>}
                     </div>
 
@@ -77,7 +77,7 @@ export function NewLocationForm() {
                         <input value={country} onChange={e => setCountry(e.target.value.trim())}
                             type="text" id="country" placeholder="Image"
                             className={'form-control ' + (isFormValidated ? countryError ? 'is-invalid' : 'is-valid' : '')} />
-                        <label htmlFor="country">Šalis</label>
+                        <label htmlFor="country">Country</label>
                         {countryError && <p className="invalid-feedback">{countryError}</p>}
                     </div>
 
@@ -85,7 +85,7 @@ export function NewLocationForm() {
                         <input value={city} onChange={e => setCity(e.target.value.trim())}
                             type="text" id="city" placeholder="Image"
                             className={'form-control ' + (isFormValidated ? cityError ? 'is-invalid' : 'is-valid' : '')} />
-                        <label htmlFor="city">Miestas</label>
+                        <label htmlFor="city">City</label>
                         {cityError && <p className="invalid-feedback">{cityError}</p>}
                     </div>
 
@@ -93,7 +93,7 @@ export function NewLocationForm() {
                     {/* number */}
                     {/* zip */}
 
-                    <button className="btn btn-primary w-100 py-2 mt-3" type="submit">Pridėti</button>
+                    <button className="btn btn-primary w-100 py-2 mt-3" type="submit">Add</button>
                 </form>
             </div>
         </main>
