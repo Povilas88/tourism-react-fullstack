@@ -34,6 +34,10 @@ export function GlobalContextWrapper(props) {
     }, []);
 
     useEffect(() => {
+        if (isLoggedIn !== true || role !== 'user') {
+            return;
+        }
+
         fetch('http://localhost:5020/api/likes-list', {
             method: 'GET',
             credentials: 'include',
@@ -45,7 +49,7 @@ export function GlobalContextWrapper(props) {
                 }
             })
             .catch(e => console.error(e));
-    }, []);
+    }, [isLoggedIn, role]);
 
     function changeLoginStatus(newStatus = false) {
         setIsLoggedIn(newStatus)
@@ -60,10 +64,35 @@ export function GlobalContextWrapper(props) {
     }
 
     function addLike(locationId) {
-        console.log('Bandom prideti patikta lokacija:', locationId);
+        fetch('http://localhost:5020/api/like', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ locationId }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setLikedLocations(pre => [...pre, locationId]);
+                }
+            })
+            .catch(err => console.log(err));
     }
     function removeLike(locationId) {
-        console.log('Bandom pasalinti patikta lokacija:', locationId);
+        fetch('http://localhost:5020/api/like', {
+            method: 'DELETE',
+            credentials: 'include',
+            body: JSON.stringify({ locationId }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setLikedLocations(pre => pre.filter(n => n !== locationId));
+                }
+            })
+            .catch(err => console.log(err));
     }
 
     const values = {

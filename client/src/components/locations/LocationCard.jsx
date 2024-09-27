@@ -3,24 +3,16 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
 
-export function LocationCard({ id, img, name, country }) {
-    const { isLoggedIn } = useContext(GlobalContext);
+export function LocationCard({ id, img, name, country, isLiked }) {
+    const { isLoggedIn, addLike, removeLike } = useContext(GlobalContext);
     const navigate = useNavigate();
-    const isLiked = false;
 
-    function addLike() {
-        if (!isLoggedIn) {
-            navigate('/login');
-        } else {
-            console.log('Add like:', id);
-        }
+    function handleLikeClick() {
+        isLoggedIn ? addLike(id) : navigate('/login');
     }
-    function removeLike() {
-        if (!isLoggedIn) {
-            navigate('/login');
-        } else {
-            console.log('Remove like:', id);
-        }
+
+    function handleDislikeClick() {
+        isLoggedIn ? removeLike(id) : navigate('/login');
     }
 
     return (
@@ -30,8 +22,8 @@ export function LocationCard({ id, img, name, country }) {
                 <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                     <div>
                         {isLiked
-                            ? <button onClick={removeLike}>Remove from list</button>
-                            : <button onClick={addLike}>Add to list</button>}
+                            ? <button onClick={handleDislikeClick}>Remove from list</button>
+                            : <button onClick={handleLikeClick}>Add to list</button>}
                     </div>
                     <h3 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{name}</h3>
                     <ul className="d-flex list-unstyled mt-auto">
