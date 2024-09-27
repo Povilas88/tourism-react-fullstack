@@ -8,6 +8,7 @@ export async function userDetails(req, res, next) {
         isLoggedIn: false,
         role: 'public',
         username: '',
+        id: -1,
     };
 
     const { cookies } = req;
@@ -16,6 +17,7 @@ export async function userDetails(req, res, next) {
         try {
             const sql = `
                 SELECT
+                    users.id,
                     users.username,
                     users.role,
                     users.created_at AS user_created_at,
@@ -30,6 +32,7 @@ export async function userDetails(req, res, next) {
                 req.user.isLoggedIn = true;
                 req.user.role = selectResult[0].role;
                 req.user.username = selectResult[0].username;
+                req.user.id = selectResult[0].id;
             }
         } catch (error) {
             console.log(error);
